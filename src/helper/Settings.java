@@ -25,6 +25,7 @@ public class Settings
 		settingsString = "";
 	}
 
+	// get settings.json contents
 	public String getSettingString() throws FileNotFoundException {
 		 // pass the path to the file as a parameter 
 		
@@ -39,6 +40,7 @@ public class Settings
 		return  settingsString;
 	}
 	
+	// overwrite settings.json content
 	public void putSettingsString(String settings) throws IOException {
 		File settingsFile = new File("settings.json");
 		
@@ -55,11 +57,13 @@ public class Settings
 		
 	}
 	
+	// get settings.json content as object
 	public JSONObject getSettingsJsonObject() throws JSONException, FileNotFoundException {
 		 final JSONObject obj = new JSONObject(this.getSettingString());
 		 return obj;
 	}
 	
+	// update folderLocation in settings
 	public void setFolderLocation(String folder) throws JSONException, IOException {
 		JSONObject settings = this.getSettingsJsonObject();
 		settings.remove("imagesFolder");
@@ -68,11 +72,10 @@ public class Settings
 		this.putSettingsString(settings.toString());
 	}
 	
+	// retrieve folder Location from settings
 	public String getFolderLocation() throws JSONException, FileNotFoundException {
-		 //System.out.println(this.getSettingString());
-		 //JSONObject JSONObject = getSettingsJsonObject();
-		 //return JSONObject.getString("imagesFolder");
-		 return this.getSettingString();
+		 JSONObject JSONObject = getSettingsJsonObject();
+		 return JSONObject.getString("imagesFolder");
 	}
 
 }

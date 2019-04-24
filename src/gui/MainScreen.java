@@ -38,27 +38,34 @@ public class MainScreen implements Initializable  {
 			}else{
 					folderPath = selectedDirectory.getAbsolutePath();
 			     	folderText.setText(folderPath);
+			     	
+			     	// save images folder location to settings.json
 					settings = new Settings();
 					settings.setFolderLocation(folderPath);
 					String imagesFolderLocation = settings.getFolderLocation();
 
-					
+					// Loading images from selected folder to static arrayList varaiable
 					ImagesLoader imgLoad = new ImagesLoader();
 				 	ArrayList<BufferedImage> imagesArray = imgLoad.getImages(imagesFolderLocation);
+				 	System.out.println("size"+ imagesArray.size());
 				 	for(int i=0;i<imagesArray.size();i++){
 				 		BufferedImage img = imagesArray.get(i);
+				 		
+
+	                    //System.out.println("image: " + f.getName());
+	                    System.out.println(" width : " + img.getWidth());
+	                    System.out.println(" height: " + img.getHeight());
+	                    //System.out.println(" size  : " + f.length());
 				 	}
 				 	
 			}
 			
-			
-			/*
-			GUIcontroller guic = new GUIcontroller();
-			guic.loadFxml("MainScreen.fxml");
-			*/
+		
 		}
 		
 		public void create3dModel(ActionEvent event) throws Exception {
+			GUIcontroller guic = new GUIcontroller();
+			guic.loadFxml("Results.fxml");
 		}
 		
 		public void start(Stage primaryStage) throws Exception {

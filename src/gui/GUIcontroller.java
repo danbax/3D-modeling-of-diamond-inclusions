@@ -27,6 +27,9 @@ public class GUIcontroller extends Application implements Initializable {
 		
 	}
 	
+	/*
+	 * Loads FXML scene
+	 */
 	public void loadFxml(String fxmlFile) throws IOException
 	{
 		// For avoiding bugs
@@ -38,7 +41,7 @@ public class GUIcontroller extends Application implements Initializable {
 					currentScene.getWindow().hide(); //hiding primary window
 					primaryStage = new Stage();
 					//primaryStage.initStyle(StageStyle.UNDECORATED); // remove close button
-					//primaryStage.resizableProperty().setValue(Boolean.FALSE);
+					primaryStage.resizableProperty().setValue(Boolean.FALSE);
 					GUIcontroller.setCurrentStage(primaryStage);
 					loader = new FXMLLoader();
 					root = loader.load(getClass().getResource("/main/resources/"+fxmlFile).openStream());

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class ImagesLoader {
-	ArrayList<BufferedImage> imagesArray = new ArrayList<BufferedImage>();
+	public static ArrayList<BufferedImage> imagesArray = new ArrayList<BufferedImage>();
 
     // File representing the folder that you select using a FileChooser
     static File dir;
@@ -42,10 +42,6 @@ public class ImagesLoader {
                 try {
                     img = ImageIO.read(f);
 
-                    System.out.println("image: " + f.getName());
-                    System.out.println(" width : " + img.getWidth());
-                    System.out.println(" height: " + img.getHeight());
-                    System.out.println(" size  : " + f.length());
                     
                     imagesArray.add(img);
                     

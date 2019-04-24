@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="537.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainScreen">
+<VBox prefHeight="537.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Results">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -17,23 +18,23 @@
                <children>
                   <AnchorPane layoutX="76.0" layoutY="-90.0" prefHeight="433.0" prefWidth="766.0" style="-fx-background-color: white; -fx-background-radius: 30;">
                      <children>
-                        <Button id="selectImagesFolder" layoutX="572.0" layoutY="105.0" mnemonicParsing="false" onAction="#selectImagesFolder" text="בחר תיקיית תמונות" />
                         <ImageView fitHeight="81.0" fitWidth="86.0" layoutX="357.0" layoutY="-26.0">
                            <image>
                               <Image url="@/images/diamond.png" />
                            </image>
                         </ImageView>
-                        <Text id="AppName" layoutX="292.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diamonds Modeling">
+                        <Text id="AppName" layoutX="363.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <Button id="create3dModel" layoutX="275.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: #008CBA; -fx-padding: 15 32;" text="צור אובייקט תלת מימדי" textFill="WHITE" onAction="#create3dModel">
+                        <Button id="create3dModel" layoutX="292.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #008CBA; -fx-padding: 15 32;" text="יצוא לקובץ EXCEL" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Button>
-                        <Text fx:id="folderText" layoutX="264.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C:\" wrappingWidth="284.5367126464844" />
+                        <ImageView id="diamondImage" fitHeight="220.0" fitWidth="398.0" layoutX="201.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
+                        <Slider id="sliderImages" layoutX="82.0" layoutY="320.0" max="180.0" min="1.0" prefHeight="14.0" prefWidth="624.0" value="1.0" />
                      </children>
                   </AnchorPane>
                </children>

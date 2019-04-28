@@ -27,7 +27,7 @@ import gui.GUIcontroller;
 
 public class Results extends GUIcontroller  {
 	@FXML private ImageView diamondImage = new ImageView();
-	@FXML private Slider sliderImages;
+	@FXML private Slider sliderImages = new Slider();
 	@FXML private Text AppName;
 	
 	
@@ -42,26 +42,11 @@ public class Results extends GUIcontroller  {
 	
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {	
-			/*
-			 * start frame
-			 */
-			/*
-	 		diamondImage = new ImageView();
-	 		diamondImage.setStyle("-fx-background-color: BLACK");
-	 		sliderImages = new Slider();
-	 		sliderImages.setValue(40);
-	 		AppName = new Text("XXX");
-	 		AppName.setText("xxxx");
-	 		*/
-			
+		
+			// showing images in image view
 			ArrayList<BufferedImage> imagesArray = helper.ImagesLoader.imagesArray;
 		 	for(int i=0;i<imagesArray.size();i++){
 		 	
-		 		         
-		 		//Loading image from URL 
-		 		//Image image = new Image(new FileInputStream("url for the image));
-
-		 		
 		 		BufferedImage img = imagesArray.get(i);
 		 		Image card = SwingFXUtils.toFXImage(img, null );
 		 		diamondImage.setImage(card);
@@ -71,6 +56,19 @@ public class Results extends GUIcontroller  {
 		 		System.out.println(card.getHeight());
 		 		
 		 	}
+		 	
+		 	// setting the image view to the right image
+		 	
+		 	sliderImages.valueProperty().addListener((observable, oldValue, newValue) -> {
+		 		sliderImages.setValue(newValue.intValue());
+		 		System.out.println(newValue);
+		 		{
+		 		BufferedImage img = imagesArray.get((int) newValue);
+		 		Image card = SwingFXUtils.toFXImage(img, null );
+		 		diamondImage.setImage(card);
+		 		}
+	        });
+
 		 	
 
 		 	

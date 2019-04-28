@@ -45,7 +45,7 @@ public class GUIcontroller extends Application implements Initializable {
 					scene.getStylesheets().add(getClass().getResource("/main/resources/AppStyle.css").toExternalForm());
 					GUIcontroller.currentScene = scene;
 					primaryStage.setScene(scene); 	
-					primaryStage.setResizable(false);
+					//primaryStage.setResizable(false);
 					primaryStage.setTitle(fxmlFile);
 					primaryStage.show(); 
 					

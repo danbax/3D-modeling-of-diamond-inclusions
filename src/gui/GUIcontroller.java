@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import client.Client;
-import entity.Request;
-import enums.Actions;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class GUIcontroller extends Application implements Initializable {
 	private static Scene currentScene;
@@ -41,14 +38,15 @@ public class GUIcontroller extends Application implements Initializable {
 					currentScene.getWindow().hide(); //hiding primary window
 					primaryStage = new Stage();
 					//primaryStage.initStyle(StageStyle.UNDECORATED); // remove close button
-					primaryStage.resizableProperty().setValue(Boolean.FALSE);
 					GUIcontroller.setCurrentStage(primaryStage);
 					loader = new FXMLLoader();
 					root = loader.load(getClass().getResource("/main/resources/"+fxmlFile).openStream());
 					Scene scene = new Scene(root);	
 					scene.getStylesheets().add(getClass().getResource("/main/resources/AppStyle.css").toExternalForm());
 					GUIcontroller.currentScene = scene;
-					primaryStage.setScene(scene); 		
+					primaryStage.setScene(scene); 	
+					primaryStage.setResizable(false);
+					primaryStage.setTitle(fxmlFile);
 					primaryStage.show(); 
 					
 				} catch (IOException e) {

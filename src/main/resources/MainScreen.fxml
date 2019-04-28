@@ -23,7 +23,7 @@
                               <Image url="@/images/diamond.png" />
                            </image>
                         </ImageView>
-                        <Text id="AppName" layoutX="292.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diamonds Modeling">
+                        <Text fx:id="AppName" layoutX="292.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diamonds Modeling">
                            <font>
                               <Font size="24.0" />
                            </font>

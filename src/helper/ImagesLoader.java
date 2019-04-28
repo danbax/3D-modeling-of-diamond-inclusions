@@ -1,6 +1,7 @@
 package helper;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class ImagesLoader {
 
                 try {
                     img = ImageIO.read(f);
-
+                    System.out.println();
                     
                     imagesArray.add(img);
                     

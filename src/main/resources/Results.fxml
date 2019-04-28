@@ -23,18 +23,18 @@
                               <Image url="@/images/diamond.png" />
                            </image>
                         </ImageView>
-                        <Text id="AppName" layoutX="363.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results">
+                        <Text fx:id="AppName" layoutX="363.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <Button id="create3dModel" layoutX="292.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #008CBA; -fx-padding: 15 32;" text="יצוא לקובץ EXCEL" textFill="WHITE">
+                        <Button  onAction="#create3dModel" fx:id="create3dModel" layoutX="292.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #008CBA; -fx-padding: 15 32;" text="יצוא לקובץ EXCEL" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Button>
-                        <ImageView id="diamondImage" fitHeight="220.0" fitWidth="398.0" layoutX="201.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
-                        <Slider id="sliderImages" layoutX="82.0" layoutY="320.0" max="180.0" min="1.0" prefHeight="14.0" prefWidth="624.0" value="1.0" />
+                        <ImageView style="-fx-background-color: red" fx:id="diamondImage" fitHeight="220.0" fitWidth="398.0" layoutX="201.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
+                        <Slider fx:id="sliderImages" layoutX="82.0" layoutY="320.0" max="180.0" min="1.0" prefHeight="14.0" prefWidth="624.0" value="1.0" />
                      </children>
                   </AnchorPane>
                </children>

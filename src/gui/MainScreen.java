@@ -19,8 +19,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import helper.ImagesLoader;
 
-public class MainScreen implements Initializable  {
-	@FXML private Text appName;
+public class MainScreen extends GUIcontroller implements Initializable  {
+	@FXML private Text AppName = new Text();
 	@FXML private Text folderText;
 	
 	@FXML private Button selectImagesFolder;
@@ -74,6 +74,8 @@ public class MainScreen implements Initializable  {
 			 * start frame
 			 */
 			
+
+			
 			Parent root = FXMLLoader.load(getClass().getResource("/main/resources/MainScreen.fxml"));
 					
 			Scene scene = new Scene(root);
@@ -82,22 +84,21 @@ public class MainScreen implements Initializable  {
 			
 			GUIcontroller.setCurrentScene(scene);
 			
-			folderText = new Text();
-			
 			thisStage = primaryStage;
 			
-			//scene.getStylesheets().add(getClass().getResource("/gui/ClientIpSetForm.css").toExternalForm());
 			primaryStage.setTitle("Diamonds Modeling");
 			primaryStage.setScene(scene);
 			
 			primaryStage.show();
 			
+			
 
 		}
-
+		
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {	
-			
 		}
+
+		
 	
 }

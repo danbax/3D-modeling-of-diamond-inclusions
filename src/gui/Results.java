@@ -51,21 +51,18 @@ public class Results extends GUIcontroller  {
 		 		Image card = SwingFXUtils.toFXImage(img, null );
 		 		diamondImage.setImage(card);
 		 		
-		 		
-		 		System.out.println(card.getPixelReader());
-		 		System.out.println(card.getHeight());
-		 		
 		 	}
 		 	
 		 	// setting the image view to the right image
-		 	
 		 	sliderImages.valueProperty().addListener((observable, oldValue, newValue) -> {
-		 		sliderImages.setValue(newValue.intValue());
-		 		System.out.println(newValue);
+		 		int value = newValue.intValue();
 		 		{
-		 		BufferedImage img = imagesArray.get((int) newValue);
-		 		Image card = SwingFXUtils.toFXImage(img, null );
-		 		diamondImage.setImage(card);
+			 		if(imagesArray.get((int) newValue) != null) {
+				 		BufferedImage img = imagesArray.get(value);
+				 		Image card = SwingFXUtils.toFXImage(img, null );
+				 		diamondImage.setImage(card);
+			 		}
+			 		
 		 		}
 	        });
 

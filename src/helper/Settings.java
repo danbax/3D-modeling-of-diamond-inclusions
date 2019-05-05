@@ -1,16 +1,8 @@
 package helper;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Scanner;
 
 import org.json.*;
@@ -20,21 +12,36 @@ import org.json.*;
 public class Settings
 {
 	private String settingsString;
+	private String settingsFolderLocation = "C:\\diamondsModelingData";
+	private String settingsFileName = "settings.json";
+    String basicData = "{\"numberOfImages\":0,\"imagesFolder\":\"C:/\"}";
 	
-	public Settings() {
+	public Settings() throws IOException {
 		settingsString = "";
+		File myDir = new File(settingsFolderLocation); 
+		myDir.mkdir(); 
+		File myFile = new File(settingsFolderLocation + "\\" + settingsFileName); 
+		myFile.createNewFile(); 
 	}
 
 	// get settings.json contents
-	public String getSettingString() throws FileNotFoundException {
+	public String getSettingString() throws IOException {
 		 // pass the path to the file as a parameter 
 		
-		String settingsString = "";
-	    File settingsFile = new File("settings.json"); 
+	    File settingsFile = new File(settingsFolderLocation + "\\" + settingsFileName); 
+	
 	    Scanner sc = new Scanner(settingsFile); 
 	  
 	    while (sc.hasNextLine()) 
 	    	settingsString += sc.nextLine(); 
+	    
+	    // initialize file content if empty
+	    if(settingsString.isEmpty() || settingsString == null || settingsString == "") {
+	    	this.putSettingsString(basicData);
+	    	settingsString = basicData;
+	    }
+	    
+	    sc.close();
 	    
 	    //settingsString = settingsString.substring(13);
 		return  settingsString;
@@ -42,7 +49,7 @@ public class Settings
 	
 	// overwrite settings.json content
 	public void putSettingsString(String settings) throws IOException {
-		File settingsFile = new File("settings.json");
+		File settingsFile = new File(settingsFolderLocation + "\\" + settingsFileName); 
 		
 		if (settingsFile.exists() && settingsFile.isFile())
 			settingsFile.delete();
@@ -58,7 +65,7 @@ public class Settings
 	}
 	
 	// get settings.json content as object
-	public JSONObject getSettingsJsonObject() throws JSONException, FileNotFoundException {
+	public JSONObject getSettingsJsonObject() throws JSONException, IOException {
 		 final JSONObject obj = new JSONObject(this.getSettingString());
 		 return obj;
 	}
@@ -73,7 +80,7 @@ public class Settings
 	}
 	
 	// retrieve folder Location from settings
-	public String getFolderLocation() throws JSONException, FileNotFoundException {
+	public String getFolderLocation() throws JSONException, IOException {
 		 JSONObject JSONObject = getSettingsJsonObject();
 		 return JSONObject.getString("imagesFolder");
 	}

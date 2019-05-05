@@ -1,9 +1,6 @@
 package gui;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -12,17 +9,15 @@ import helper.Settings;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import helper.ImagesLoader;
 import gui.GUIcontroller;
 
 public class Results extends GUIcontroller  {
@@ -52,19 +47,43 @@ public class Results extends GUIcontroller  {
 		 		diamondImage.setImage(card);
 		 		
 		 	}
-		 	
+
+		 	sliderImages.setMin(0);
+		 	sliderImages.setMax(imagesArray.size());
 		 	// setting the image view to the right image
 		 	sliderImages.valueProperty().addListener((observable, oldValue, newValue) -> {
 		 		int value = newValue.intValue();
 		 		{
-			 		if(imagesArray.get((int) newValue) != null) {
+			 		if(imagesArray.get(value) != null) {
 				 		BufferedImage img = imagesArray.get(value);
 				 		Image card = SwingFXUtils.toFXImage(img, null );
-				 		diamondImage.setImage(card);
+				 		
+				 		 PixelReader pixelReader = card.getPixelReader();
+				 		 WritableImage wImage = new WritableImage(
+				                 (int)card.getWidth(),
+				                 (int)card.getHeight());
+				         PixelWriter pixelWriter = wImage.getPixelWriter();
+				       
+				        // Determine the color of each pixel in a specified row
+				        for(int readY=0;readY<card.getHeight();readY++){
+				            for(int readX=0; readX<card.getWidth();readX++){
+				                Color color = pixelReader.getColor(readX,readY);
+				                
+				                // Now write a brighter color to the PixelWriter.
+				                if(readX==readY || readX == 5 || readY==80 || (readX>30 && readX<60 && readY>40 && readY<80)) {
+				                	color = color.brighter();
+				                }
+				                pixelWriter.setColor(readX,readY,color);
+				            }
+				        }
+				 		
+				 		diamondImage.setImage(wImage);
 			 		}
 			 		
 		 		}
 	        });
+		 	
+		 	
 
 		 	
 

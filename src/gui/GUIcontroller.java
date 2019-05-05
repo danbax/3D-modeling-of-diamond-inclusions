@@ -47,6 +47,7 @@ public class GUIcontroller extends Application implements Initializable {
 					primaryStage.setScene(scene); 	
 					//primaryStage.setResizable(false);
 					primaryStage.setTitle(fxmlFile);
+					primaryStage.setMaximized(true);
 					primaryStage.show(); 
 					
 				} catch (IOException e) {

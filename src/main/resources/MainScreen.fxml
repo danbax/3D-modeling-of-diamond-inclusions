@@ -19,7 +19,7 @@
                      <children>
                   		<AnchorPane AnchorPane.topAnchor="-3.0" AnchorPane.rightAnchor="10.0">
 	                  		<children>
-	                        <Button id="selectImagesFolder" layoutX="372.0" layoutY="146.0"  mnemonicParsing="false" onAction="#selectImagesFolder" text="בחר תיקיית תמונות" >
+	                        <Button id="selectImagesFolder" layoutX="362.0" layoutY="146.0"  mnemonicParsing="false" onAction="#selectImagesFolder" text="בחר תיקיית תמונות" >
 	                           <font>
 	                              <Font size="20.0" />
 	                           </font>
@@ -34,13 +34,23 @@
 	                              <Font size="40.0" />
 	                           </font>
 	                        </Text>
-	                        <Text fx:id="folderText" layoutX="80.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C:\" wrappingWidth="284.5367126464844" >
+	                        <Text fx:id="folderText" layoutX="80.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C:\"  >
 	                           <font>
 	                              <Font size="20.0" />
 	                           </font>
 	                        </Text>
 	                        </children>
            				 </AnchorPane>
+           				 <AnchorPane AnchorPane.topAnchor="250.0" AnchorPane.rightAnchor="30.0">
+	                  		<children>
+	                  		<Text fx:id="NumberOfImages" >
+	                           <font>
+	                              <Font size="24.0" />
+	                           </font>
+	                        </Text>
+	                  		</children>
+	                  	</AnchorPane>
+           				 
            				 <AnchorPane AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="30.0">
 	                  		<children>
                         <Button id="create3dModel" layoutX="275.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: #008CBA; -fx-padding: 15 32;" text="צור אובייקט תלת מימדי" textFill="WHITE" onAction="#create3dModel">

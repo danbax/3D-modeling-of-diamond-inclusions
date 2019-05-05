@@ -33,11 +33,14 @@ import helper.ImagesLoader;
 public class MainScreen extends GUIcontroller implements Initializable  {
 	@FXML private Text AppName = new Text();
 	@FXML private Text folderText = new Text();
+	@FXML private Text NumberOfImages = new Text();
 	
 	@FXML private Button selectImagesFolder;
 	Stage thisStage;
 	Settings settings;
 	String folderPath;
+	
+	
 	
 	
 		public void selectImagesFolder(ActionEvent event) throws Exception {
@@ -55,25 +58,13 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 					settings.setFolderLocation(folderPath);
 					String imagesFolderLocation = settings.getFolderLocation();
 					
-
+					// Adjust name length for text field
 					if(folderPath.length() >23)
 						folderPath = folderPath.substring(0,23)+"...";
 			     	folderText.setText(folderPath);
-
-					// Loading images from selected folder to static arrayList varaiable
-					ImagesLoader imgLoad = new ImagesLoader();
-				 	ArrayList<BufferedImage> imagesArray = imgLoad.getImages(imagesFolderLocation);
-				 	System.out.println("size"+ imagesArray.size());
-				 	for(int i=0;i<imagesArray.size();i++){
-				 		BufferedImage img = imagesArray.get(i);
-				 		
-
-	                    //System.out.println("image: " + f.getName());
-	                    System.out.println(" width : " + img.getWidth());
-	                    System.out.println(" height: " + img.getHeight());
-	                    //System.out.println(" size  : " + f.length());
-				 	}
-				 	
+			     	
+			     	
+			     	laodImagesFromFolder(folderPath);
 			}
 			
 		
@@ -85,8 +76,8 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.getDialogPane().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 				alert.setTitle("שגיאה");
-				alert.setHeaderText("לא בחרת תמונות");
-				alert.setContentText("עליך לבחור תמונות!");
+				alert.setHeaderText("לא נמצאו תמונות");
+				alert.setContentText("עליך לבחור תיקיית תמונות!");
 
 				alert.showAndWait();
 			}else {
@@ -127,29 +118,39 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 		public void initialize(URL arg0, ResourceBundle arg1) {	
 
 			Settings settings = null;
+			String folderLocation = null;
 			try {
 				settings = new Settings();
+				folderLocation = settings.getFolderLocation();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-			
-			try {
-				folderText.setText(settings.getFolderLocation());
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}
+			
+			if(folderLocation != null) {
+				folderText.setText(folderLocation);
+				laodImagesFromFolder(folderLocation);
 			}
 			
 	        
 	        
 			
+		}
+		
+		private void laodImagesFromFolder(String imagesFolderLocation) {
+			// Loading images from selected folder to static arrayList varaiable
+			ImagesLoader imgLoad = new ImagesLoader();
+		 	ArrayList<BufferedImage> imagesArray = imgLoad.getImages(imagesFolderLocation);
+		 	if(imagesArray.size()==0) {
+		 		NumberOfImages.setFill(Color.RED);
+			 	NumberOfImages.setText("לא נמצאו תמונות בתיקייה");
+		 	}else {
+			 	NumberOfImages.setFill(Color.GREEN);
+			 	NumberOfImages.setText("נמצאו בתיקייה "+ imagesArray.size()+ " תמונות");
+		 	}
 		}
 
 	

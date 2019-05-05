@@ -33,6 +33,8 @@ public class ImagesLoader {
     };
 
     public ArrayList<BufferedImage> getImages(String folder) {
+    	imagesArray = null;
+    	imagesArray = new ArrayList<BufferedImage>();
     	dir = new File(folder);
     	
         if (dir.isDirectory()) { // make sure it's a directory
@@ -41,7 +43,6 @@ public class ImagesLoader {
 
                 try {
                     img = ImageIO.read(f);
-                    System.out.println();
                     
                     imagesArray.add(img);
                     

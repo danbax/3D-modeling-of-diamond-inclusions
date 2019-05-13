@@ -1,15 +1,25 @@
 package gui;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import org.json.JSONException;
 
+import entities.Point2D;
+import entities.Point3D;
+import entities.PointsCloud2D;
+import entities.PointsCloud3D;
 import helper.Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,11 +33,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import helper.ImagesColored;
 import helper.ImagesLoader;
 
 public class MainScreen extends GUIcontroller implements Initializable  {
@@ -35,14 +47,23 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 	@FXML private Text folderText = new Text();
 	@FXML private Text NumberOfImages = new Text();
 	
+	@FXML private TextField scale = new TextField();
+	@FXML private TextField imageWidth = new TextField();
+	@FXML private TextField imageHeight = new TextField();
+	@FXML private TextField imageCount = new TextField();
+	@FXML private TextField angleStep = new TextField();
+	@FXML private TextField rotationCenter = new TextField();
+	
 	@FXML private Button selectImagesFolder;
 	Stage thisStage;
 	Settings settings;
 	String folderPath;
 	
+	PointsCloud3D pointsArray = new PointsCloud3D();
 	
-	
-	
+		/*
+		 *  Triggered by clicking on "select images folder"
+		 */
 		public void selectImagesFolder(ActionEvent event) throws Exception {
 			
 			DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -63,25 +84,27 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 						folderPath = folderPath.substring(0,23)+"...";
 			     	folderText.setText(folderPath);
 			     	
-			     	
-			     	laodImagesFromFolder(folderPath);
+			     	laodImagesFromFolder(imagesFolderLocation);
 			}
 			
 		
 		}
 		
+		
 		public void create3dModel(ActionEvent event) throws Exception {
-			System.out.println(ImagesLoader.imagesArray.size());
 			if(ImagesLoader.imagesArray.size()==0) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.getDialogPane().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-				alert.setTitle("שגיאה");
-				alert.setHeaderText("לא נמצאו תמונות");
-				alert.setContentText("עליך לבחור תיקיית תמונות!");
+				alert.setTitle("Error");
+				alert.setHeaderText("Images not found");
+				alert.setContentText("You should select images folder!");
 
 				alert.showAndWait();
 			}else {
-			
+				
+
+				ImagesColored images = new ImagesColored(pointsArray);
+				
 				GUIcontroller guic = new GUIcontroller();
 				guic.loadFxml("Results.fxml");
 			}
@@ -135,10 +158,35 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 				laodImagesFromFolder(folderLocation);
 			}
 			
-	        
-	        
+			setParametersInTextField();
 			
-		}
+			
+			 Point3D point = null;
+			 PointsCloud3D pointsCloud = new PointsCloud3D();
+			 PointsCloud2D pointsCloud2d = new PointsCloud2D();
+			 String csvFile = "C:\\\\Users\\\\97250\\\\Desktop\\\\3D Rendering Data\\\\Stone 1\\\\Voxels.csv";
+			 String line = "";
+	         String cvsSplitBy = ",";
+
+	        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+
+	            while ((line = br.readLine()) != null) {
+
+	                // use comma as separator
+	                String[] pointString = line.split(cvsSplitBy);
+	                point = new Point3D(Double.parseDouble(pointString[0]),Double.parseDouble(pointString[1]),Double.parseDouble(pointString[2]),Double.parseDouble(pointString[3])); 
+	                pointsCloud.addPoint(point);
+
+	            }
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        //pointsCloud.print();
+	        this.pointsArray = pointsCloud;
+	    }
+			
+		
 		
 		private void laodImagesFromFolder(String imagesFolderLocation) {
 			// Loading images from selected folder to static arrayList varaiable
@@ -146,11 +194,30 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 		 	ArrayList<BufferedImage> imagesArray = imgLoad.getImages(imagesFolderLocation);
 		 	if(imagesArray.size()==0) {
 		 		NumberOfImages.setFill(Color.RED);
-			 	NumberOfImages.setText("לא נמצאו תמונות בתיקייה");
+			 	NumberOfImages.setText("Images not found in folder");
 		 	}else {
 			 	NumberOfImages.setFill(Color.GREEN);
-			 	NumberOfImages.setText("נמצאו בתיקייה "+ imagesArray.size()+ " תמונות");
+			 	NumberOfImages.setText(imagesArray.size()+ " images found");
 		 	}
+		}
+		
+		private void setParametersInTextField() {
+			Settings settings = null;
+			try {
+				settings = new Settings();
+				scale.setText(settings.getScale());
+				imageWidth.setText(settings.getImageWidth());
+				imageHeight.setText(settings.getImageHeight());
+				imageCount.setText(settings.getImageCount());
+				angleStep.setText(settings.getAngleStep());
+				rotationCenter.setText(settings.getRotationCenter());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	

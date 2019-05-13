@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import helper.Settings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import gui.GUIcontroller;
@@ -24,7 +23,7 @@ public class Results extends GUIcontroller  {
 	@FXML private ImageView diamondImage = new ImageView();
 	@FXML private Slider sliderImages = new Slider();
 	@FXML private Text AppName;
-	
+	@FXML private CheckBox showMask;
 	
 	Stage thisStage;
 	Settings settings;
@@ -35,18 +34,34 @@ public class Results extends GUIcontroller  {
 		guic.loadFxml("MainScreen.fxml");
 	}
 	
+	public void goBack(ActionEvent event) throws Exception {
+		GUIcontroller guic = new GUIcontroller();
+		guic.loadFxml("MainScreen.fxml");
+	}
+	
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {	
-		
-			// showing images in image view
-			ArrayList<BufferedImage> imagesArray = helper.ImagesLoader.imagesArray;
-		 	for(int i=0;i<imagesArray.size();i++){
-		 	
-		 		BufferedImage img = imagesArray.get(i);
-		 		Image card = SwingFXUtils.toFXImage(img, null );
-		 		diamondImage.setImage(card);
-		 		
-		 	}
+			showMask.setSelected(true);
+			
+			showMask.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			    @Override
+			    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+			    	ArrayList<BufferedImage> images = helper.ImagesColored.imagesArray;
+			    	if(showMask.isSelected()) {
+		 				images = helper.ImagesColored.imagesArray;
+		 			}
+		 			else {
+		 				images = helper.ImagesLoader.imagesArray;
+		 			}
+			    	
+			    	Image card = SwingFXUtils.toFXImage(images.get(0), null );
+					diamondImage.setImage(card);
+			    }
+			});
+			
+			ArrayList<BufferedImage> imagesArray = helper.ImagesColored.imagesArray;
+			Image card = SwingFXUtils.toFXImage(imagesArray.get(0), null );
+			diamondImage.setImage(card);
 
 		 	sliderImages.setMin(0);
 		 	sliderImages.setMax(imagesArray.size());
@@ -54,33 +69,21 @@ public class Results extends GUIcontroller  {
 		 	sliderImages.valueProperty().addListener((observable, oldValue, newValue) -> {
 		 		int value = newValue.intValue();
 		 		{
-			 		if(imagesArray.get(value) != null) {
-				 		BufferedImage img = imagesArray.get(value);
-				 		Image card = SwingFXUtils.toFXImage(img, null );
+	 				ArrayList<BufferedImage> images = helper.ImagesColored.imagesArray;
+		 			if(showMask.isSelected()) {
+		 				images = helper.ImagesColored.imagesArray;
+		 			}
+		 			else {
+		 				images = helper.ImagesLoader.imagesArray;
+		 			}
+		 			
+			 		if(images.get(value) != null) {
+						Image imgColored = SwingFXUtils.toFXImage(images.get(value), null );
+				 		//Image card = SwingFXUtils.toFXImage(img, null );
+				 		diamondImage.setImage(imgColored);
 				 		
-				 		 PixelReader pixelReader = card.getPixelReader();
-				 		 WritableImage wImage = new WritableImage(
-				                 (int)card.getWidth(),
-				                 (int)card.getHeight());
-				         PixelWriter pixelWriter = wImage.getPixelWriter();
-				       
-				        // Determine the color of each pixel in a specified row
-				        for(int readY=0;readY<card.getHeight();readY++){
-				            for(int readX=0; readX<card.getWidth();readX++){
-				                Color color = pixelReader.getColor(readX,readY);
-				                
-				                // Now write a brighter color to the PixelWriter.
-				                if(readX==readY || readX == 5 || readY==80 || (readX>30 && readX<60 && readY>40 && readY<80)) {
-				                	color = color.brighter();
-				                }
-				                pixelWriter.setColor(readX,readY,color);
-				            }
 				        }
-				 		
-				 		diamondImage.setImage(wImage);
 			 		}
-			 		
-		 		}
 	        });
 		 	
 		 	

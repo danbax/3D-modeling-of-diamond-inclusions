@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 
+/*
+ * This object holds the set of the diamond images
+ */
 public class ImagesLoader {
 	public static ArrayList<BufferedImage> imagesArray = new ArrayList<BufferedImage>();
 
@@ -16,7 +18,7 @@ public class ImagesLoader {
 
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
-        "gif", "png", "bmp","jpg","jpeg" // and other formats you need
+        "gif", "png", "bmp","jpg","jpeg","bmp" // and other formats you need
     };
     // filter to identify images based on their extensions
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
@@ -32,6 +34,7 @@ public class ImagesLoader {
         }
     };
 
+    // load images from folder
     public ArrayList<BufferedImage> getImages(String folder) {
     	imagesArray = null;
     	imagesArray = new ArrayList<BufferedImage>();
@@ -54,4 +57,5 @@ public class ImagesLoader {
         }
 		return null;
     }
+    
 }

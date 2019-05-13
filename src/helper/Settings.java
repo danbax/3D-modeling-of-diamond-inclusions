@@ -14,7 +14,8 @@ public class Settings
 	private String settingsString;
 	private String settingsFolderLocation = "C:\\diamondsModelingData";
 	private String settingsFileName = "settings.json";
-    String basicData = "{\"numberOfImages\":0,\"imagesFolder\":\"C:/\"}";
+    String basicData = "{\"numberOfImages\":0,\"imagesFolder\":\"C:/\",\"imageWidth\":\"1024\",\"imageHeight\":\"1280\""
+    		+ ",\"scale\":\"0.013046\",\"rotationCenter\":\"511.996\",\"ImageCount\":\"300\",\"angleStep\":\"1.2\"}";
 	
 	public Settings() throws IOException {
 		settingsString = "";
@@ -71,19 +72,109 @@ public class Settings
 	}
 	
 	// update folderLocation in settings
-	public void setFolderLocation(String folder) throws JSONException, IOException {
-		JSONObject settings = this.getSettingsJsonObject();
-		settings.remove("imagesFolder");
-		settings.put("imagesFolder", folder);
+		public void setFolderLocation(String folder) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("imagesFolder");
+			settings.put("imagesFolder", folder);
+			
+			this.putSettingsString(settings.toString());
+		}
 		
-		this.putSettingsString(settings.toString());
-	}
-	
-	// retrieve folder Location from settings
-	public String getFolderLocation() throws JSONException, IOException {
-		 JSONObject JSONObject = getSettingsJsonObject();
-		 return JSONObject.getString("imagesFolder");
-	}
+		// retrieve folder Location from settings
+		public String getFolderLocation() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("imagesFolder");
+		}
+		
+		// update scale in settings
+		public void setScale(String scale) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("scale");
+			settings.put("scale", scale);
+			
+			this.putSettingsString(settings.toString());
+		}
+		
+		// retrieve scale from settings
+		public String getScale() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("scale");
+		}
+		
+		// update rotationCenter in settings
+		public void setRotationCenter(String rotationCenter) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("rotationCenter");
+			settings.put("rotationCenter", rotationCenter);
+			
+			this.putSettingsString(settings.toString());
+		}
+		
+		// retrieve rotationCenter from settings
+		public String getRotationCenter() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("rotationCenter");
+		}
+		
+		// update ImageCount in settings
+		public void setImageCount(String ImageCount) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("ImageCount");
+			settings.put("ImageCount", ImageCount);
+			
+			this.putSettingsString(settings.toString());
+		}
+		
+		// retrieve ImageCount from settings
+		public String getImageCount() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("ImageCount");
+		}
+		
+		// update angleStep in settings
+		public void setAngleStep(String angleStep) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("angleStep");
+			settings.put("angleStep", angleStep);
+			
+			this.putSettingsString(settings.toString());
+		}
+		
+		// retrieve angleStep from settings
+		public String getAngleStep() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("angleStep");
+		}
+		
+		// update imageWidth in settings
+		public void setImageWidth(String imageWidth) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("imageWidth");
+			settings.put("imageWidth", imageWidth);
+			
+			this.putSettingsString(settings.toString());
+		}
+		
+		// retrieve imageWidth from settings
+		public String getImageWidth() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("imageWidth");
+		}
+		
+		// update ImageHeight in settings
+		public void setImageHeight(String imageHeight) throws JSONException, IOException {
+			JSONObject settings = this.getSettingsJsonObject();
+			settings.remove("imageHeight");
+			settings.put("imageHeight", imageHeight);
+			
+			this.putSettingsString(settings.toString());
+		}
+		
+		// retrieve imageHeight from settings
+		public String getImageHeight() throws JSONException, IOException {
+			 JSONObject JSONObject = getSettingsJsonObject();
+			 return JSONObject.getString("imageHeight");
+		}
 
 }
 

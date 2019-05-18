@@ -58,6 +58,7 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 	Stage thisStage;
 	Settings settings;
 	String folderPath;
+	String shortFolderPath;
 	
 	PointsCloud3D pointsArray = new PointsCloud3D();
 	
@@ -77,14 +78,13 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 			     	// save images folder location to settings.json
 					settings = new Settings();
 					settings.setFolderLocation(folderPath);
-					String imagesFolderLocation = settings.getFolderLocation();
 					
 					// Adjust name length for text field
 					if(folderPath.length() >23)
-						folderPath = folderPath.substring(0,23)+"...";
-			     	folderText.setText(folderPath);
+						shortFolderPath = folderPath.substring(0,23)+"...";
+			     	folderText.setText(shortFolderPath);
 			     	
-			     	laodImagesFromFolder(imagesFolderLocation);
+			     	laodImagesFromFolder(folderPath);
 			}
 			
 		

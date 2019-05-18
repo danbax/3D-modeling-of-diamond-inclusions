@@ -40,6 +40,8 @@ public class ImagesLoader {
     	imagesArray = new ArrayList<BufferedImage>();
     	dir = new File(folder);
     	
+    	System.out.println(folder);
+    	
         if (dir.isDirectory()) { // make sure it's a directory
             for (final File f : dir.listFiles(IMAGE_FILTER)) {
                 BufferedImage img = null;

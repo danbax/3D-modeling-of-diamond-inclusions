@@ -41,6 +41,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import helper.ImagesColored;
 import helper.ImagesLoader;
+import helper.ReconstructionJNI;
 
 public class MainScreen extends GUIcontroller implements Initializable  {
 	@FXML private Text AppName = new Text();

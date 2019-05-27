@@ -11,6 +11,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -105,8 +106,23 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 
 				alert.showAndWait();
 			}else {
+				/*
+				ArrayList<BufferedImage> imagesArray = ImagesLoader.imagesArray;
+				for(int i=0;i<imagesArray.size();i++){
+			 		BufferedImage image = imagesArray.get(i);
+			 		byte[] bytes = ImagesLoader.BufferedImageToByteArray(image);
+			 		new ReconstructionJNI().InputVideoSetFrame(i, bytes);
+				}
+				*/
 				
+				byte[] bytes = { (byte) 48, (byte) 65, (byte)6f, (byte)20, (byte)77, (byte)6f, (byte)72 , (byte)64};
+		
 				
+				ReconstructionJNI rJNI = new ReconstructionJNI();
+				rJNI.InputVideoSetFrame(1, bytes);
+				rJNI.OutputGetVoxelsFields();
+				
+			
 				
 				//ImagesColored images = new ImagesColored(pointsArray);
 				
@@ -165,6 +181,7 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 			
 			setParametersInTextField();
 			
+			/*
 			
 			 Point3D point = null;
 			 PointsCloud3D pointsCloud = new PointsCloud3D();
@@ -172,6 +189,7 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 			 String csvFile = "D:\\\\Stone 1\\\\Voxels.csv";
 			 String line = "";
 	         String cvsSplitBy = ",";
+	         
 
 	        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
@@ -189,6 +207,7 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 	        }
 	        //pointsCloud.print();
 	        this.pointsArray = pointsCloud;
+	        */
 	    }
 			
 		

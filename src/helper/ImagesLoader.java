@@ -61,7 +61,7 @@ public class ImagesLoader {
 		return null;
     }
     
-    public byte[] BufferedImageToByteArray(BufferedImage img) {
+    public static byte[] BufferedImageToByteArray(BufferedImage img) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			ImageIO.write(img, "bmp", baos);

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
-
+<?import javafx.scene.control.ProgressBar?>
 
 
 <VBox prefHeight="537.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainScreen">
@@ -86,6 +86,7 @@
            				 
            				 <AnchorPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0">
 	                  		<children>
+	                  	<ProgressBar fx:id="progressBar" layoutX="175.0" layoutY="235.0"  prefWidth="400.0" progress="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
                         <Button id="create3dModel" layoutX="275.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: #008CBA; -fx-padding: 15 32;" text="Create 3D model" textFill="WHITE" onAction="#create3dModel">
                            <font>
                               <Font size="20.0" />

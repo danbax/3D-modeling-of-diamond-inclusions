@@ -39,6 +39,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -60,8 +61,9 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 	@FXML private TextField imageCount = new TextField();
 	@FXML private TextField angleStep = new TextField();
 	@FXML private TextField rotationCenter = new TextField();
-	
+
 	@FXML private Button selectImagesFolder;
+	@FXML private ProgressBar progressBar;
 	Stage thisStage;
 	Settings settings;
 	String folderPath;
@@ -109,6 +111,9 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 				alert.showAndWait();
 			}else {
 				
+
+				progressBar.setVisible(true);
+				
 				Runnable r = new Runnable() {
 			         public void run() {
 			        	 /* send byte array to c++ dll */
@@ -128,6 +133,9 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 						 		  int counter = 0;
 						 		   @Override
 						 		   public void run() {
+						 			   
+						 			  progressBar.setProgress(Math.random());
+						 			   
 						 		       //call the method
 						 		       counter++;
 						 		       if (counter >= 50){
@@ -189,6 +197,7 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {	
 
+			progressBar.setVisible(false);
 			
 			Settings settings = null;
 			String folderLocation = null;

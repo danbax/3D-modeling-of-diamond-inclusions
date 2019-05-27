@@ -54,7 +54,7 @@
                         </AnchorPane>
                         <AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="50.0">
 	                  		<children>
-                        <ImageView style="-fx-background-color: firebrick;" fx:id="diamondImage" fitHeight="824.0" fitWidth="1280.0" layoutX="100.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView style="-fx-background-color: firebrick;" fx:id="diamondImage" fitHeight="600.0" fitWidth="1280.0" layoutX="100.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                         </children>
             			</AnchorPane>
                         <AnchorPane AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">

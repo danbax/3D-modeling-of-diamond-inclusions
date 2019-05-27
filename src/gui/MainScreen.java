@@ -115,13 +115,14 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 				}
 				*/
 				
-				byte[] bytes = { (byte) 48, (byte) 65, (byte)6f, (byte)20, (byte)77, (byte)6f, (byte)72 , (byte)64};
-		
+				//byte[] bytes = { (byte) 48, (byte) 65, (byte)6f, (byte)20, (byte)77, (byte)6f, (byte)72 , (byte)64};
+				byte[] bytes = { 0x3f,0x3d,0x01,0x21,1,1,1};
+
 				
 				ReconstructionJNI rJNI = new ReconstructionJNI();
+				rJNI.InputVideoFinish();
 				rJNI.InputVideoSetFrame(1, bytes);
 				rJNI.OutputGetVoxelsFields();
-				
 			
 				
 				//ImagesColored images = new ImagesColored(pointsArray);

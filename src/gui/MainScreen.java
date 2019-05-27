@@ -165,7 +165,7 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 			 Point3D point = null;
 			 PointsCloud3D pointsCloud = new PointsCloud3D();
 			 PointsCloud2D pointsCloud2d = new PointsCloud2D();
-			 String csvFile = "C:\\\\Users\\\\97250\\\\Desktop\\\\3D Rendering Data\\\\Stone 1\\\\Voxels.csv";
+			 String csvFile = "D:\\\\Stone 1\\\\Voxels.csv";
 			 String line = "";
 	         String cvsSplitBy = ",";
 

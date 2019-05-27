@@ -1,6 +1,7 @@
 package helper;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -60,4 +61,15 @@ public class ImagesLoader {
 		return null;
     }
     
+    public byte[] BufferedImageToByteArray(BufferedImage img) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(img, "bmp", baos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
 }

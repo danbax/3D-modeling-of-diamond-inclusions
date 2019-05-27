@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 import org.json.JSONException;
 
@@ -103,11 +106,12 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 				alert.showAndWait();
 			}else {
 				
-
-				ImagesColored images = new ImagesColored(pointsArray);
 				
-				GUIcontroller guic = new GUIcontroller();
-				guic.loadFxml("Results.fxml");
+				
+				//ImagesColored images = new ImagesColored(pointsArray);
+				
+				//GUIcontroller guic = new GUIcontroller();
+				//guic.loadFxml("Results.fxml");
 			}
 		}
 		
@@ -220,6 +224,8 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 				e.printStackTrace();
 			}
 		}
+		
+		
 
 	
 }

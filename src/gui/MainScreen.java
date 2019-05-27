@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -47,7 +49,7 @@ import helper.ImagesColored;
 import helper.ImagesLoader;
 import helper.ReconstructionJNI;
 
-public class MainScreen extends GUIcontroller implements Initializable  {
+public class MainScreen extends GUIcontroller  implements Initializable  {
 	@FXML private Text AppName = new Text();
 	@FXML private Text folderText = new Text();
 	@FXML private Text NumberOfImages = new Text();
@@ -106,28 +108,54 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 
 				alert.showAndWait();
 			}else {
-				/*
-				ArrayList<BufferedImage> imagesArray = ImagesLoader.imagesArray;
-				for(int i=0;i<imagesArray.size();i++){
-			 		BufferedImage image = imagesArray.get(i);
-			 		byte[] bytes = ImagesLoader.BufferedImageToByteArray(image);
-			 		new ReconstructionJNI().InputVideoSetFrame(i, bytes);
-				}
-				*/
 				
-				byte[] bytes = { (byte) 48, (byte) 65, (byte)6f, (byte)20, (byte)77, (byte)6f, (byte)72 , (byte)64};
-		
-				
-				ReconstructionJNI rJNI = new ReconstructionJNI();
-				rJNI.InputVideoSetFrame(1, bytes);
-				rJNI.OutputGetVoxelsFields();
-				
+				Runnable r = new Runnable() {
+			         public void run() {
+			        	 /* send byte array to c++ dll */
+			        	 ArrayList<BufferedImage> imagesArray = ImagesLoader.imagesArray;
+			 			
+							for(int i=0;i<imagesArray.size();i++){
+						 		BufferedImage image = imagesArray.get(i);
+						 		byte[] bytes = ImagesLoader.BufferedImageToByteArray(image);
+						 		new ReconstructionJNI().InputVideoSetFrame(i, bytes);
+						 		
+						 		System.out.println(bytes.length); // checks the image size is 1024*1280
+						 		
+						 		Timer timer = new Timer();
+						 		int begin = 0;
+						 		int timeInterval = 1000;
+						 		timer.schedule(new TimerTask() {
+						 		  int counter = 0;
+						 		   @Override
+						 		   public void run() {
+						 		       //call the method
+						 		       counter++;
+						 		       if (counter >= 50){
+						 		         timer.cancel();
+						 		       }
+						 		      int progress = new ReconstructionJNI().GetProcessProgress();
+						 		      if(progress >= 100) {
+						 		    	  GUIcontroller guic = new GUIcontroller();
+						 		    	  try {
+											guic.loadFxml("Results.fxml");
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+						 		      }
+						 		   }
+						 		}, begin, timeInterval);
+
+						 		
+							}
+			         }
+			     };
+
+			     new Thread(r).start();
 			
 				
 				//ImagesColored images = new ImagesColored(pointsArray);
 				
-				//GUIcontroller guic = new GUIcontroller();
-				//guic.loadFxml("Results.fxml");
 			}
 		}
 		
@@ -161,11 +189,13 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {	
 
+			
 			Settings settings = null;
 			String folderLocation = null;
 			try {
 				settings = new Settings();
 				folderLocation = settings.getFolderLocation();
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -181,8 +211,110 @@ public class MainScreen extends GUIcontroller implements Initializable  {
 			
 			setParametersInTextField();
 			
-			/*
+			/************************************************
+			 * SET settings listeners
+			 ************************************************/
+			scale.textProperty().addListener((observable, oldValue, newValue) -> {
+				
+				try {
+					Settings settingsUpdate = new Settings();
+					settingsUpdate.setScale(newValue);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+			});
+			/************************************************
+			 * SET settings listeners - images count
+			 ************************************************/
+			imageCount.textProperty().addListener((observable, oldValue, newValue) -> {
+				
+				try {
+					Settings settingsUpdate = new Settings();
+					settingsUpdate.setScale(newValue);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+			});
+			/************************************************
+			 * SET settings angel step
+			 ************************************************/
+			angleStep.textProperty().addListener((observable, oldValue, newValue) -> {
+	
+				try {
+					Settings settingsUpdate = new Settings();
+					settingsUpdate.setScale(newValue);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
+			});
+			/************************************************
+			 * SET settings rotation center
+			 ************************************************/
+			rotationCenter.textProperty().addListener((observable, oldValue, newValue) -> {
+				
+				try {
+					Settings settingsUpdate = new Settings();
+					settingsUpdate.setScale(newValue);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			});
+			/************************************************
+			 * SET settings image width
+			 ************************************************/
+			imageWidth.textProperty().addListener((observable, oldValue, newValue) -> {
+				
+				try {
+					Settings settingsUpdate = new Settings();
+					settingsUpdate.setScale(newValue);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			});
+			/************************************************
+			 * SET settings image height
+			 ************************************************/
+			imageHeight.textProperty().addListener((observable, oldValue, newValue) -> {
+				
+				try {
+					Settings settingsUpdate = new Settings();
+					settingsUpdate.setScale(newValue);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			});
+			
+			/*
 			 Point3D point = null;
 			 PointsCloud3D pointsCloud = new PointsCloud3D();
 			 PointsCloud2D pointsCloud2d = new PointsCloud2D();

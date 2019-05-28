@@ -1,7 +1,10 @@
 package entities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.json.JSONException;
 
 public class PointsCloud3D {
 	private ArrayList<Point3D> pointsArray;
@@ -35,7 +38,7 @@ public class PointsCloud3D {
 	}
 	
 	// create 2D points cloud from 3D points Cloud by currentFrame(ImageNumber)
-	public PointsCloud2D create2DCloud(double currentFrame) throws CloneNotSupportedException {
+	public PointsCloud2D create2DCloud(float currentFrame) throws CloneNotSupportedException, NumberFormatException, IOException, JSONException {
 		PointsCloud2D pointCloud2D = new PointsCloud2D();
 		
 		for(Point3D point3D: this.pointsArray) {

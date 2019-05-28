@@ -1,15 +1,21 @@
 package entities;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+
+import helper.Settings;
+
 public class Point3D implements Cloneable {
-	private double x;
-	private double y;
-	private double z;
-	private double w;
+	private float x;
+	private float y;
+	private float z;
+	private float w;
 	
 
 			
 	
-	public Point3D(double x,double y,double z,double w) {
+	public Point3D(float x,float y,float z,float w) {
 		this.setX(x);
 		this.setY(y);
 		this.setZ(z);
@@ -23,54 +29,58 @@ public class Point3D implements Cloneable {
 		this.setW(0);
 	}
 	
-	public Point3D(double x,double y,double z) {
+	public Point3D(float x,float y,float z) {
 		this.setX(x);
 		this.setY(y);
 		this.setZ(z);
-		this.setW(0.5);
+		this.setW((float) 0.5);
 	}
 
-	public double getX() {
+	public float getX() {
 		return x;
 	}
 
-	public void setX(double x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
-	public double getZ() {
+	public float getZ() {
 		return z;
 	}
 
-	public void setZ(double z) {
+	public void setZ(float z) {
 		this.z = z;
 	}
 
-	public double getY() {
+	public float getY() {
 		return y;
 	}
 
-	public void setY(double y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 
-	public double getW() {
+	public float getW() {
 		return w;
 	}
 
-	public void setW(double w) {
+	public void setW(float w) {
 		this.w = w;
 	}
 	
-	// converts point from 3D to 2D by currentFframe(number of the image in the set) and parameters from settings
-	public Point2D convertPoint3dToPoint2d(double currentFrame) throws CloneNotSupportedException
+	/*********************************************************************************************************
+	 *  converts point from 3D to 2D by currentFframe(number of the image in the set) and parameters from settings
+	*********************************************************************************************************/
+	public Point2D convertPoint3dToPoint2d(double currentFrame) throws CloneNotSupportedException, IOException, NumberFormatException, JSONException
     {
-		  double  scale=0.013046;
-		  double  rotationCenter=511.996;
-		  double  SImageWidth=1024;
-		  double  ImageHeight=1280;
-		  double  ImageCount=300;
-		  double  angleStep=1.2;
+		// get settings
+		Settings settings = new Settings();
+		float  scale= Float.parseFloat(settings.getScale());
+		float  rotationCenter= Float.parseFloat(settings.getRotationCenter());
+		float  angleStep= Float.parseFloat(settings.getAngleStep());
+		float  SImageWidth= Integer.parseInt(settings.getImageWidth());
+		float  ImageHeight= Integer.parseInt(settings.getImageHeight());
+		float  ImageCount= Integer.parseInt(settings.getImageCount());
 				  
 		
         Point2D point2D = new Point2D(0, 0);

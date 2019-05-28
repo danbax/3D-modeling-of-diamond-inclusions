@@ -1,7 +1,11 @@
 package helper;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.JSONException;
+
 import entities.Point2D;
 import entities.PointsCloud2D;
 import entities.PointsCloud3D;
@@ -14,7 +18,7 @@ public class ImagesColored {
 	public static ArrayList<BufferedImage> imagesArray = new ArrayList<BufferedImage>();
 
 	// draw pixels of 3D cloud point on each image in set. 
-	public ImagesColored(PointsCloud3D pointsCloud3D) throws CloneNotSupportedException {
+	public ImagesColored(PointsCloud3D pointsCloud3D) throws CloneNotSupportedException, NumberFormatException, IOException, JSONException {
 		ArrayList<BufferedImage> imagesArray = helper.ImagesLoader.imagesArray;
 		PointsCloud2D p2d = new PointsCloud2D();
 		// for each image

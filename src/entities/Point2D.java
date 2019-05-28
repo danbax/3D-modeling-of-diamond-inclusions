@@ -1,43 +1,43 @@
 package entities;
 
 public class Point2D {
-	private double x;
-	private double y;
-	private double w;
+	private float x;
+	private float y;
+	private float w;
 	
-	public Point2D(double x,double y,double w) {
+	public Point2D(float x,float y,float w) {
 		this.setX(x);
 		this.setY(y);
 		this.setW(w);
 	}
 	
-	public Point2D(double x,double y) {
+	public Point2D(float x,float y) {
 		this.setX(x);
 		this.setY(y);
 	}
 	
 
-	public double getX() {
+	public float getX() {
 		return x;
 	}
 
-	public void setX(double x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
-	public double getY() {
+	public float getY() {
 		return y;
 	}
 
-	public void setY(double y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 
-	public double getW() {
+	public float getW() {
 		return w;
 	}
 
-	public void setW(double w) {
+	public void setW(float w) {
 		this.w = w;
 	}
 	

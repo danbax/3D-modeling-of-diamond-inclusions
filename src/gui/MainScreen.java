@@ -64,6 +64,8 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 
 	@FXML private Button selectImagesFolder;
 	@FXML private ProgressBar progressBar;
+	
+	ReconstructionJNI reconstructionJNI = new ReconstructionJNI();
 	Stage thisStage;
 	Settings settings;
 	String folderPath;
@@ -71,9 +73,9 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 	
 	PointsCloud3D pointsArray = new PointsCloud3D();
 	
-		/*
+		/*********************************************
 		 *  Triggered by clicking on "select images folder"
-		 */
+		 *********************************************/
 		public void selectImagesFolder(ActionEvent event) throws Exception {
 			
 			DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -99,8 +101,12 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 		
 		}
 		
+		/*********************************************
+		 *  Triggered by clicking on "Create 3D model"
+		 *********************************************/
 		
 		public void create3dModel(ActionEvent event) throws Exception {
+			// show error messeage if there is no images
 			if(ImagesLoader.imagesArray.size()==0) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.getDialogPane().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
@@ -116,6 +122,30 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 				
 				Runnable r = new Runnable() {
 			         public void run() {
+
+			        	 /* send parameters */
+			        	 try {
+							Settings settings = new Settings();
+							reconstructionJNI.SetParameter_float("scale", Float.parseFloat(settings.getScale()));
+							reconstructionJNI.SetParameter_float("scale", Float.parseFloat(settings.getAngleStep()));
+							reconstructionJNI.SetParameter_int("scale", Integer.parseInt(settings.getImageCount()));
+							reconstructionJNI.SetParameter_int("scale", Integer.parseInt(settings.getImageHeight()));
+							reconstructionJNI.SetParameter_int("scale", Integer.parseInt(settings.getImageWidth()));
+							reconstructionJNI.SetParameter_float("scale", Float.parseFloat(settings.getRotationCenter()));
+							
+							
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			        	 
+			        	 
 			        	 /* send byte array to c++ dll */
 			        	 ArrayList<BufferedImage> imagesArray = ImagesLoader.imagesArray;
 			 			

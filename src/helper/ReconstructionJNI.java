@@ -17,7 +17,7 @@ public class ReconstructionJNI {
 
 	//output
 	public native boolean OutputGetVoxelsData(float[] aVoxelsData);//Checked
-	public native int outputGetVoxelsCount();//Checked
+	public native int OutputGetVoxelsCount();//Checked
 	public native int OutputGetVoxelsFields();//Checked
 
 	public native boolean OutputGetSliceData(int iSliceIndex, float[] aSliceData);//Checked

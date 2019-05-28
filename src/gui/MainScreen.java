@@ -117,6 +117,7 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 				rJNI.InputVideoFinish();
 				rJNI.InputVideoSetFrame(1, bytes);
 				rJNI.OutputGetVoxelsFields();
+				
 				Runnable r = new Runnable() {
 			         public void run() {
 			        	 /* send byte array to c++ dll */

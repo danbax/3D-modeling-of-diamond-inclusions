@@ -161,27 +161,32 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 							for(int i=0;i<imagesArray.size();i++){
 						 		BufferedImage image = imagesArray.get(i);
 						 		byte[] bytes = ImagesLoader.BufferedImageToByteArray(image);
-						 		new ReconstructionJNI().InputVideoSetFrame(i, bytes);
-						 		
-						 		System.out.println(bytes.length); // checks the image size is 1024*1280
+						 		reconstructionJNI.InputVideoSetFrame(i, bytes);
 						 		
 						 		Timer timer = new Timer();
 						 		int begin = 0;
 						 		int timeInterval = 1000;
 						 		timer.schedule(new TimerTask() {
-						 		  int counter = 0;
+						 	    int counter = 0;
 						 		   @Override
 						 		   public void run() {
-						 			   
-						 			  progressBar.setProgress(Math.random());
+
+							 		  int progress = reconstructionJNI.GetProcessProgress();
+						 			  progressBar.setProgress(progress);
 						 			   
 						 		       //call the method
 						 		       counter++;
 						 		       if (counter >= 50){
 						 		         timer.cancel();
 						 		       }
-						 		      int progress = new ReconstructionJNI().GetProcessProgress();
 						 		      if(progress >= 100) {
+						 		    	  
+						 		    	  /**********************************
+						 		    	   * HERE we should get voxels, create 3D points cloud -> make 2D points cloud
+						 		    	   * //ImagesColored images = new ImagesColored(pointsArray);
+						 		    	   *
+						 		    	   */
+						 		    	  
 						 		    	  GUIcontroller guic = new GUIcontroller();
 						 		    	  try {
 											guic.loadFxml("Results.fxml");
@@ -200,7 +205,7 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 
 			     new Thread(r).start();			
 				
-				//ImagesColored images = new ImagesColored(pointsArray);
+				
 				
 			}
 		}

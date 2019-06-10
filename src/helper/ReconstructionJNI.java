@@ -16,7 +16,7 @@ public class ReconstructionJNI {
 	public native boolean InputVideoSetFrame(int iFrameIndex, byte[] aFrameData);//Checked
 
 	//output
-	public native boolean OutputGetVoxelsData(float[] aVoxelsData);//Checked
+	public native float[] OutputGetVoxelsData(float[] aVoxelsData);//Checked
 	public native int OutputGetVoxelsCount();//Checked
 	public native int OutputGetVoxelsFields();//Checked
 

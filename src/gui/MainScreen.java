@@ -106,7 +106,7 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 		 *********************************************/
 		
 		public void create3dModel(ActionEvent event) throws Exception {
-			// show error messeage if there is no images
+			// show error messeage if there are no images
 			if(ImagesLoader.imagesArray.size()==0) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.getDialogPane().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
@@ -124,12 +124,12 @@ public class MainScreen extends GUIcontroller  implements Initializable  {
 				//byte[] bytes = { (byte) 48, (byte) 65, (byte)6f, (byte)20, (byte)77, (byte)6f, (byte)72 , (byte)64};
 				byte[] bytes = { 0x3f,0x3d,0x01,0x21,1,1,1};
 				
-				
+			/*	
 				ReconstructionJNI rJNI = new ReconstructionJNI();
 				rJNI.InputVideoFinish();
 				rJNI.InputVideoSetFrame(1, bytes);
 				rJNI.OutputGetVoxelsFields();
-				
+				*/
 				Runnable r = new Runnable() {
 			         public void run() {
 

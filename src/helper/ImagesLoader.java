@@ -1,13 +1,16 @@
 package helper;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 
+/*
+ * This object holds the set of the diamond images
+ */
 public class ImagesLoader {
 	public static ArrayList<BufferedImage> imagesArray = new ArrayList<BufferedImage>();
 
@@ -16,7 +19,7 @@ public class ImagesLoader {
 
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
-        "gif", "png", "bmp","jpg","jpeg" // and other formats you need
+        "gif", "png", "bmp","jpg","jpeg","bmp" // and other formats you need
     };
     // filter to identify images based on their extensions
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
@@ -32,10 +35,13 @@ public class ImagesLoader {
         }
     };
 
+    // load images from folder
     public ArrayList<BufferedImage> getImages(String folder) {
     	imagesArray = null;
     	imagesArray = new ArrayList<BufferedImage>();
     	dir = new File(folder);
+    	
+    	System.out.println(folder);
     	
         if (dir.isDirectory()) { // make sure it's a directory
             for (final File f : dir.listFiles(IMAGE_FILTER)) {
@@ -54,4 +60,16 @@ public class ImagesLoader {
         }
 		return null;
     }
+    
+    public static byte[] BufferedImageToByteArray(BufferedImage img) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(img, "bmp", baos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
 }
